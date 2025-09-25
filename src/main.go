@@ -16,12 +16,12 @@ func main() {
 	player1 := functions.EnterPseudo()
 	player2 := functions.EnterPseudo()
 
-	var currentPlayer *string = &player1
-
 	grid := [6][7]int{}
 	ptrGrid := &grid
 
 	for !functions.IsGameover() {
+
+		var currentPlayer *string = functions.PlayerTurn(&player1, &player2)
 
 		functions.Gridmanager(0, ptrGrid, currentPlayer)
 	}
