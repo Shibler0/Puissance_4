@@ -1,7 +1,7 @@
 package functions
 
-func IsGameover() {
-
+func IsGameover() bool {
+	return false
 }
 
 func Draw() {

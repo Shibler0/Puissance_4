@@ -12,18 +12,18 @@ func main() {
 	// fmt.Println("🚀 Serveur démarré sur http://localhost:8080")
 	// http.ListenAndServe(":8080", r)
 
-	isWon := false
+	fmt.Println("Puissance 4")
+	player1 := functions.EnterPseudo()
+	player2 := functions.EnterPseudo()
 
-	for !isWon {
+	var currentPlayer *string = &player1
 
-		functions.IsGameover()
+	grid := [6][7]int{}
+	ptrGrid := &grid
 
-		var pseudo = "dimitri"
+	for !functions.IsGameover() {
 
-		fmt.Println("Puissance 4")
-		fmt.Println("Entrez votre nom")
-		fmt.Scan()
-
-		functions.Gridmanager(0, pseudo)
+		functions.Gridmanager(0, ptrGrid, currentPlayer)
 	}
+
 }
