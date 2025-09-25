@@ -2,7 +2,7 @@ package functions
 
 func PlayerTurn(currentPlayer *string, nextPlayer *string) *string {
 
-	var nxtPlayer = currentPlayer
-
-	return nxtPlayer
+	tmp := currentPlayer
+	*currentPlayer, *nextPlayer = *nextPlayer, *currentPlayer
+	return tmp
 }
