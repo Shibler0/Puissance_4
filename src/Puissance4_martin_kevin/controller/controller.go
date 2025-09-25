@@ -51,16 +51,3 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 	}
 	renderTemplate(w, "contact.html", data)
 }
-
-func grid() {
-	var grid [6][7]int
-
-}
-
-func setToken(column int) {
-
-}
-
-func checkColumn() {
-
-}
