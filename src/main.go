@@ -21,9 +21,9 @@ func main() {
 
 	for !functions.IsGameover() {
 
-		var currentPlayer *string = functions.PlayerTurn(&player1, &player2)
-
-		functions.Gridmanager(0, ptrGrid, currentPlayer)
+		var currentPlayer *string = functions.PlayerTurn(&player1, &player2) //jongle entre 2 les 2 joueurs
+		column := functions.PlayerMoove(ptrGrid, currentPlayer)              //demande au joueur d'entrer son numero de column
+		functions.Gridmanager(column, ptrGrid, currentPlayer)                //gestion de la grille et ses contraintes (a faire)
 	}
 
 }

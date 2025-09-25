@@ -1,6 +1,6 @@
 package functions
 
-func PlayerTurn(currentPlayer *string, nextPlayer *string) *string {
+func PlayerTurn(nextPlayer *string, currentPlayer *string) *string {
 
 	tmp := currentPlayer
 	*currentPlayer, *nextPlayer = *nextPlayer, *currentPlayer
