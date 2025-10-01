@@ -1,4 +1,53 @@
-canvas {
-    border: 1px solid #333;
-    background: #fafafa;
+.color {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#buttons {
+    display: grid;
+    grid-template-columns: repeat(7, 60px);
+    grid-template-rows: repeat(1, 30px);
+    gap: 5px;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+#buttons button {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    justify-content: center;
+    align-items: center;
+}
+
+button:active {
+  background-color: #d6d6d6;
+  transform: scale(0.95);
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(7, 60px);
+    grid-template-rows: repeat(6, 60px);
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+    background: #0044cc;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+
+#container canvas {
+    justify-self: center;
+    align-self: center;
 }
