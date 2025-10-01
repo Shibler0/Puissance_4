@@ -10,6 +10,9 @@ func New() *http.ServeMux {
 
 	mux := http.NewServeMux() // Création d'un nouveau ServeMux, qui est un routeur simple pour les requêtes HTTP
 
+	fs := http.FileServer(http.Dir("./static"))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	// On associe les chemins URL à des fonctions spécifiques du controller
 	mux.HandleFunc("/", controller.Home)           // "/" correspond à la page d'accueil. Appelle la fonction Home du controller
 	mux.HandleFunc("/about", controller.About)     // "/about" correspond à la page "À propos". Appelle la fonction About
