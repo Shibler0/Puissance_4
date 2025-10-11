@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="/home">Accueil</a>
+            <a href="/play">Jouer</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <h1>{{.Title}}</h1>
+
+        <form method="POST" action="/play">
+            <div id="buttons" class="color">
+                <button type="submit" name="col" value="0">1</button>
+                <button type="submit" name="col" value="1">2</button>
+                <button type="submit" name="col" value="2">3</button>
+                <button type="submit" name="col" value="3">4</button>
+                <button type="submit" name="col" value="4">5</button>
+                <button type="submit" name="col" value="5">6</button>
+                <button type="submit" name="col" value="6">7</button>
+            </div>
+
+        </form>
+
+        <table>
+            {{range $row := .Grid}}
+            <tr>
+                {{range $cell := $row}}
+                <td>
+                    <div class="cell">{{$cell}}</div>
+                </td>
+                {{end}}
+            </tr>
+            {{end}}
+        </table>
+
+
+
+
+    </main>
+
+</body>
+
+</html>

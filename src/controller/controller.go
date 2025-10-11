@@ -1,14 +1,23 @@
 package controller
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
+type PageData struct {
+	Title string
+	Grid  [6][7]string
+}
+
+var board [6][7]string
+
 // renderTemplate est une fonction utilitaire pour afficher un template HTML avec des données dynamiques
-func renderTemplate(w http.ResponseWriter, filename string, data map[string]string) {
-	tmpl := template.Must(template.ParseFiles("template/" + filename)) // Charge le fichier template depuis le dossier "template"
-	tmpl.Execute(w, data)                                              // Exécute le template et écrit le résultat dans la réponse HTTP
+func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
+	tmpl := template.Must(template.ParseFiles("template/" + filename))
+	tmpl.Execute(w, data)
 }
 
 // Home gère la page d'accueil
@@ -20,13 +29,29 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "index.html", data) // Affiche le template index.html avec les données
 }
 
-// About gère la page "À propos"
-func About(w http.ResponseWriter, r *http.Request) {
-	data := map[string]string{
-		"Title":   "À propos",
-		"Message": "Ceci est la page À propos ✨",
+func Game(w http.ResponseWriter, r *http.Request) {
+	var grid [6][7]string
+	title := "Grille Puissance 4"
+	for i := 0; i < 6; i++ {
+		for j := 0; j < 7; j++ {
+			grid[i][j] = "0" // Valeur visible
+		}
 	}
-	renderTemplate(w, "about.html", data) // Affiche le template about.html avec les données
+
+	if r.Method == http.MethodPost {
+		col := r.FormValue("col")
+		colInt, _ := strconv.Atoi(col)
+		title = fmt.Sprintf("Colonne sélectionnée : %d", colInt+1)
+	}
+
+	fmt.Println("Grille envoyée au template :", grid) // Debug
+
+	data := PageData{
+		Title: title,
+		Grid:  grid,
+	}
+
+	renderTemplate(w, "play.html", data)
 }
 
 // Contact gère la page de contact

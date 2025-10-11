@@ -10,7 +10,7 @@ func main() {
 	// Charge le routeur
 	r := router.New()
 
-	fmt.Println("🚀 Serveur démarré sur http://localhost:8080")
+	fmt.Println("🚀 Serveur démarré sur http://localhost:8080/play")
 	http.ListenAndServe(":8080", r)
 
 	// fmt.Println("Puissance 4")
