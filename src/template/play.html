@@ -9,41 +9,48 @@
 <body>
 
     <header>
-        <nav>
-            <a href="/home">Accueil</a>
-            <a href="/play">Jouer</a>
-            <a href="/contact">Contact</a>
-        </nav>
+        <div id="playertoken">
+            <h1>{{.Title}}</h1>
+            <div class="playercell" style="background-color: {{.Color}};"></div>
+        </div>
     </header>
 
     <main>
 
-        <h1>{{.Title}}</h1>
+        <div id="interactive" style="display : {{.Visibility}};">
 
-        <form method="POST" action="/play">
-            <div id="buttons" class="color">
-                <button type="submit" name="col" value="0">1</button>
-                <button type="submit" name="col" value="1">2</button>
-                <button type="submit" name="col" value="2">3</button>
-                <button type="submit" name="col" value="3">4</button>
-                <button type="submit" name="col" value="4">5</button>
-                <button type="submit" name="col" value="5">6</button>
-                <button type="submit" name="col" value="6">7</button>
-            </div>
+            <form method="POST" action="/play">
+                <div id="buttons" class="color">
+                    <button type="submit" name="col" value="0">1</button>
+                    <button type="submit" name="col" value="1">2</button>
+                    <button type="submit" name="col" value="2">3</button>
+                    <button type="submit" name="col" value="3">4</button>
+                    <button type="submit" name="col" value="4">5</button>
+                    <button type="submit" name="col" value="5">6</button>
+                    <button type="submit" name="col" value="6">7</button>
+                </div>
 
-        </form>
+            </form>
 
-        <table>
-            {{range $row := .Grid}}
-            <tr>
-                {{range $cell := $row}}
-                <td>
-                    <div class="cell" {{if eq $cell 1}}style="background-color: yellow;" {{else if eq $cell 2}}style="background-color: red;" {{end}}></div>
-                </td>
+            <table>
+                {{range $row := .Grid}}
+                <tr>
+                    {{range $cell := $row}}
+                    <td>
+                        <div class="cell" {{if eq $cell 1}}style="background-color: yellow;" {{else if eq $cell 2}}style="background-color: red;" {{end}}></div>
+                    </td>
+                    {{end}}
+                </tr>
                 {{end}}
-            </tr>
-            {{end}}
-        </table>
+            </table>
+        </div>
+
+
+
+
+        <div id="winningscreen">
+            <p>Felications joueur {{.Winner}}</p>
+        </div>
 
 
 

@@ -25,18 +25,30 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 // gestion de la grille
 func Game(w http.ResponseWriter, r *http.Request) {
-	title := "Grille Puissance 4"
+	title := "Pion à poser : "
+	playerTurn := *(grid.PlayerTurnPointer)
+	visibility := "auto"
+	winner := "dimitri"
 
 	if r.Method == http.MethodPost {
 		col := r.FormValue("col")
 		colInt, _ := strconv.Atoi(col)
-		title = fmt.Sprintf("Colonne sélectionnée : %d", colInt)
-		grid.SetToken(5, colInt)
+		player, iswon := grid.SetToken(colInt)
+		if iswon {
+			//pointers = "none"
+			visibility = "none"
+			winner = strconv.Itoa(player)
+			fmt.Printf("%d a gagné", player)
+		}
 	}
 
 	data := grid.PageData{
-		Title: title,
-		Grid:  *grid.PointerGrid,
+		Title:      title,
+		Grid:       *grid.PointerGrid,
+		PlayerTurn: playerTurn,
+		Color:      grid.SetColor(),
+		Visibility: visibility,
+		Winner:     winner,
 	}
 
 	renderTemplate(w, "play.html", data)
