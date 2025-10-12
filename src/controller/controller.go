@@ -4,15 +4,9 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"power4/grid"
 	"strconv"
 )
-
-type PageData struct {
-	Title string
-	Grid  [6][7]string
-}
-
-var board [6][7]string
 
 // renderTemplate est une fonction utilitaire pour afficher un template HTML avec des données dynamiques
 func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
@@ -29,26 +23,20 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "index.html", data) // Affiche le template index.html avec les données
 }
 
+// gestion de la grille
 func Game(w http.ResponseWriter, r *http.Request) {
-	var grid [6][7]string
 	title := "Grille Puissance 4"
-	for i := 0; i < 6; i++ {
-		for j := 0; j < 7; j++ {
-			grid[i][j] = "0" // Valeur visible
-		}
-	}
 
 	if r.Method == http.MethodPost {
 		col := r.FormValue("col")
 		colInt, _ := strconv.Atoi(col)
-		title = fmt.Sprintf("Colonne sélectionnée : %d", colInt+1)
+		title = fmt.Sprintf("Colonne sélectionnée : %d", colInt)
+		grid.SetToken(5, colInt)
 	}
 
-	fmt.Println("Grille envoyée au template :", grid) // Debug
-
-	data := PageData{
+	data := grid.PageData{
 		Title: title,
-		Grid:  grid,
+		Grid:  *grid.PointerGrid,
 	}
 
 	renderTemplate(w, "play.html", data)

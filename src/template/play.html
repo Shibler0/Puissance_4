@@ -38,7 +38,7 @@
             <tr>
                 {{range $cell := $row}}
                 <td>
-                    <div class="cell">{{$cell}}</div>
+                    <div class="cell" {{if eq $cell 1}}style="background-color: yellow;" {{else if eq $cell 2}}style="background-color: red;" {{end}}></div>
                 </td>
                 {{end}}
             </tr>
