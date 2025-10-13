@@ -6,12 +6,13 @@ type One struct {
 }
 
 type PageData struct {
-	Title      string
-	Grid       [6][7]int
-	PlayerTurn int
-	Color      string
-	Visibility string
-	Winner     string
+	Title          string
+	Grid           [6][7]int
+	PlayerTurn     int
+	Color          string
+	Visibility     string
+	Winner         string
+	TextVisibility string
 }
 
 type GameData struct {

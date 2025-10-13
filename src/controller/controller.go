@@ -21,7 +21,7 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 func Home(w http.ResponseWriter, r *http.Request) {
 	data := structure.One{
 		Title:   "Puissance 4",
-		Message: "Bienvenue sur le jeu",
+		Message: "Partie enregistré",
 	}
 	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
 }
@@ -40,7 +40,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		IsOver:  false,
 	}
 
-	enregistrerJSON("save.json", game)
+	saveJSON("save.json", game)
 
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
@@ -51,6 +51,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 	playerTurn := *(grid.PlayerTurnPointer)
 	visibility := "auto"
 	winner := "dimitri"
+	textvisibility := "none"
 
 	if r.Method == http.MethodPost {
 		col := r.FormValue("col")
@@ -59,18 +60,20 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		if iswon {
 			//pointers = "none"
 			visibility = "none"
+			textvisibility = "auto"
 			winner = strconv.Itoa(player)
 			fmt.Printf("%d a gagné", player)
 		}
 	}
 
 	data := structure.PageData{
-		Title:      title,
-		Grid:       *grid.PointerGrid,
-		PlayerTurn: playerTurn,
-		Color:      grid.SetColor(),
-		Visibility: visibility,
-		Winner:     winner,
+		Title:          title,
+		Grid:           *grid.PointerGrid,
+		PlayerTurn:     playerTurn,
+		Color:          grid.SetColor(),
+		Visibility:     visibility,
+		Winner:         winner,
+		TextVisibility: textvisibility,
 	}
 
 	renderTemplate(w, "play.html", data)
@@ -99,7 +102,7 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "contact.html", data)
 }
 
-func enregistrerJSON(nomFichier string, data interface{}) error {
+func saveJSON(nomFichier string, data interface{}) error {
 	// Convertir les données en JSON (avec indentation pour la lisibilité)
 	bytes, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
