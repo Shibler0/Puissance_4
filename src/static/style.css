@@ -99,3 +99,22 @@ td {
   top: 50%;
   left: 50%;
 }
+/*partie css home
+-----------------------------------*/
+.historic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 10px;
+  justify-content: start;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.historic-grid > div {
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 60px;
+}
+

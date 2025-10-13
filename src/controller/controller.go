@@ -18,8 +18,9 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 // Home gère la page d'accueil
 func Home(w http.ResponseWriter, r *http.Request) {
 	data := structure.One{
-		Title:   "Puissance 4",
-		Message: "Bienvenue sur le jeu",
+		Title:    "Puissance 4",
+		Message:  "Bienvenue sur le jeu",
+		Historic: []structure.Partie{},
 	}
 	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
 }

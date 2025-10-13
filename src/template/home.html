@@ -15,10 +15,27 @@
     <h1>{{ .Title }}</h1>
     <p>{{ .Message }}</p>
     <nav>
-        <a href="/home">Accueil</a>
-        <a href="/play">Jouer</a>
-        <a href="/contact">Contact</a>
+        <div class="link-home">
+            <a href="/home">Accueil</a>
+            <a href="/play">New game</a>
+            <a href="/contact">Contact</a>
+        </div>
     </nav>
+        <h2>Historique de parties :</h2>
+        <section>
+        <div class="historic-grid" >
+            <p>Date</p>
+            <p>Joueur 1</p>
+            <p>Joueur 2</p>
+            <p>Status</p>
+            {{range .Historic}}
+                <p>{{.Date}}</p>
+                <p>{{.Joueur1}}</p>
+                <p>{{.Joueur2}}</p>
+                <p>{{.Status}}</p>
+            {{end}}
+        </div>
+        </section>
 </body>
 
 </html>
