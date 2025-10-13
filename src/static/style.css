@@ -77,7 +77,7 @@ td {
   height: 60px;
   border-radius: 50%;
   margin: auto;
-  background-color: white;
+  background-color: #e0f7fa;
 }
 
 #playertoken {
@@ -100,45 +100,7 @@ td {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-/*partie css home
------------------------------------*/
-.title-home {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 36px;
-  color: #d2df25;
-}
-.historic-grid {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  gap: 10px;
-  justify-content: start;
-  align-items: center;
-  margin: 20px 0;
-}
 
-.historic-grid > div {
-  padding: 8px 12px;
-  background: #f5f5f5;
-  border-radius: 8px;
-  text-align: center;
-  min-width: 60px;
-}
-.footer-text {
-  background: #a4e7f3;
-  text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #777;
-}
-.link-home {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin: 20px 0;
-}
-/*fin css home
------------------------------------*/
 #savePlacement {
   position: fixed;         
   bottom: 20px;              
@@ -158,4 +120,17 @@ td {
 .save:hover{
   cursor: pointer;
   background-color: #ccc;
+}
+
+#rightside {
+  position: fixed;
+  right: 20px;
+  top : 50%;
+  transform: translateY(-50%);
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }

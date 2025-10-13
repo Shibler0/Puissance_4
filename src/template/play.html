@@ -46,12 +46,18 @@
             </table>
         </div>
 
+        <form method="POST" action="/reset">
+            <button type="submit" id="rightside" style="border:none; background:none; padding:0;">
+                <img src="../static/picture/refresh.svg" alt="réinitialiser la partie" />
+            </button>
+        </form>
+
 
 
         <div id="winningscreen" style="display : {{.TextVisibility}};">
             <p>Felications joueur {{.Winner}}</p>
             <form method="POST" action="/returnmenu">
-                <button class="save">retourner au menu</button>
+                <button class="save" href="/home">retourner au menu</button>
             </form>
         </div>
 
@@ -62,6 +68,7 @@
         </form>
 
     </main>
+
 </body>
 
 </html>

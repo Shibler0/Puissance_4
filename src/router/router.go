@@ -15,6 +15,7 @@ func New() *http.ServeMux {
 	mux.HandleFunc("/play", controller.Game)
 	mux.HandleFunc("/save", controller.Save)
 	mux.HandleFunc("/returnmenu", controller.Returnmenu)
+	mux.HandleFunc("/reset", controller.Reset)
 	//mux.HandleFunc("/play", controller.HandleGrid)
 	//mux.HandleFunc("/contact", controller.Contact) // "/contact" correspond à la page de contact. Appelle la fonction Contact
 
