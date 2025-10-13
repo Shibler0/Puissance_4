@@ -9,7 +9,7 @@
 <body>
 
     <header>
-        <div id="playertoken">
+        <div id="playertoken" style="display : {{.Visibility}};">
             <h1>{{.Title}}</h1>
             <div class="playercell" style="background-color: {{.Color}};"></div>
         </div>
@@ -49,13 +49,16 @@
 
 
 
-        <div id="winningscreen">
+        <div id="winningscreen" style="display : {{.TextVisibility}};">
             <p>Felications joueur {{.Winner}}</p>
+            <form method="POST" action="/returnmenu">
+                <button class="save">retourner au menu</button>
+            </form>
         </div>
 
-        <form method="POST" action="/save">
+        <form method="POST" action="/save" style="display : {{.Visibility}};">
             <div id="savePlacement">
-                <button id="save">Sauvegarder</button>
+                <button class="save">Sauvegarder</button>
             </div>
         </form>
 
