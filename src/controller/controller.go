@@ -79,6 +79,10 @@ func Game(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "play.html", data)
 }
 
+func Returnmenu(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/home", http.StatusSeeOther)
+}
+
 // Contact gère la page de contact
 func Contact(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost { // Si le formulaire est soumis en POST

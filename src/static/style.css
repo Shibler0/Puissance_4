@@ -110,14 +110,14 @@ td {
   justify-content: center;
 }
 
-#save {
+.save {
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 20px;
   border: 0px solid rgba(255, 0, 0, 0);
 }
 
-#save:hover{
+.save:hover{
   cursor: pointer;
   background-color: #ccc;
 }
