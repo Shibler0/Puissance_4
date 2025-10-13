@@ -12,15 +12,10 @@
 </head>
 
 <body>
-    <h1>{{ .Title }}</h1>
+    <h1 class="title-home">{{ .Title }}</h1>
     <p>{{ .Message }}</p>
-    <nav>
-        <div class="link-home">
-            <a href="/home">Accueil</a>
-            <a href="/play">New game</a>
-            <a href="/contact">Contact</a>
-        </div>
-    </nav>
+    
+        <p>{{.Message2}}</p>
         <h2>Historique de parties :</h2>
         <section>
         <div class="historic-grid" >
@@ -36,6 +31,16 @@
             {{end}}
         </div>
         </section>
-</body>
 
+<footer>
+    <div class="footer-text">
+    <nav>
+        <div class="link-home">
+            <a href="/home">Accueil</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </nav>
+    </div>
+</footer>
+</body>
 </html>

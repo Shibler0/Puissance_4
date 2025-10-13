@@ -101,6 +101,12 @@ td {
 }
 /*partie css home
 -----------------------------------*/
+.title-home {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 36px;
+  color: #d2df25;
+}
 .historic-grid {
   display: grid;
   grid-template-columns: repeat(4, auto);
@@ -117,4 +123,38 @@ td {
   text-align: center;
   min-width: 60px;
 }
+.footer-text {
+  background: #a4e7f3;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #777;
+}
+.link-home {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+/*fin css home
+-----------------------------------*/
+#savePlacement {
+  position: fixed;         
+  bottom: 20px;              
+  left: 50%;               
+  transform: translateX(-50%); 
+  display: flex;             
+  justify-content: center;
+}
 
+#save {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: 0px solid rgba(255, 0, 0, 0);
+}
+
+#save:hover{
+  cursor: pointer;
+  background-color: #ccc;
+}

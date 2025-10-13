@@ -37,7 +37,8 @@
                 <tr>
                     {{range $cell := $row}}
                     <td>
-                        <div class="cell" {{if eq $cell 1}}style="background-color: yellow;" {{else if eq $cell 2}}style="background-color: red;" {{end}}></div>
+                        <div class="cell" {{if eq $cell 1}}style="background-color: yellow;" {{else if eq $cell
+                            2}}style="background-color: red;" {{end}}></div>
                     </td>
                     {{end}}
                 </tr>
@@ -52,8 +53,11 @@
             <p>Felications joueur {{.Winner}}</p>
         </div>
 
-
-
+        <form method="POST" action="/save">
+            <div id="savePlacement">
+                <button id="save">Sauvegarder</button>
+            </div>
+        </form>
 
     </main>
     <a href="/home">Back to home</a>

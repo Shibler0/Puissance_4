@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"power4/grid"
 	"power4/structure"
 	"strconv"
@@ -19,10 +21,30 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 func Home(w http.ResponseWriter, r *http.Request) {
 	data := structure.One{
 		Title:    "Puissance 4",
-		Message:  "Bienvenue sur le jeu",
+		Message:  "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
+		Message2: "Ici, vous retrouvez les ancienne partie jouer :",
 		Historic: []structure.Partie{},
 	}
 	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
+}
+
+func Save(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
+	}
+
+	game := structure.GameData{
+		Player1: 1,
+		Player2: 2,
+		Grid:    *grid.PointerGrid,
+		Turn:    1,
+		IsOver:  false,
+	}
+
+	enregistrerJSON("save.json", game)
+
+	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
 
 // gestion de la grille
@@ -44,7 +66,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	data := grid.PageData{
+	data := structure.PageData{
 		Title:      title,
 		Grid:       *grid.PointerGrid,
 		PlayerTurn: playerTurn,
@@ -77,4 +99,15 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 		"Message": "Envoie-nous un message 📩",
 	}
 	renderTemplate(w, "contact.html", data)
+}
+
+func enregistrerJSON(nomFichier string, data interface{}) error {
+	// Convertir les données en JSON (avec indentation pour la lisibilité)
+	bytes, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	// Écrire dans le fichier
+	return os.WriteFile(nomFichier, bytes, 0644)
 }
