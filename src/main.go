@@ -13,7 +13,7 @@ func main() {
 
 	grid.CreateGrid()
 
-	fmt.Println("🚀 Serveur démarré sur http://localhost:8080/home")
+	fmt.Println("🚀 Serveur démarré sur http://localhost:8080/play")
 	http.ListenAndServe(":8080", r)
 
 	// fmt.Println("Puissance 4")

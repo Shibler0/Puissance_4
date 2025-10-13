@@ -4,15 +4,6 @@ import (
 	"fmt"
 )
 
-type PageData struct {
-	Title      string
-	Grid       [6][7]int
-	PlayerTurn int
-	Color      string
-	Visibility string
-	Winner     string
-}
-
 var grid [6][7]int
 var PointerGrid = &grid
 
