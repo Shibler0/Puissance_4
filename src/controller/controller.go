@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"power4/grid"
+	"power4/structure"
 	"strconv"
 )
 
@@ -16,11 +17,11 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 
 // Home gère la page d'accueil
 func Home(w http.ResponseWriter, r *http.Request) {
-	data := map[string]string{
-		"Title":   "Accueil",                           // Titre de la page
-		"Message": "Bienvenue sur la page d'accueil 🎉", // Message affiché dans le template
+	data := structure.One{
+		Title:   "Puissance 4",
+		Message: "Bienvenue sur le jeu",
 	}
-	renderTemplate(w, "index.html", data) // Affiche le template index.html avec les données
+	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
 }
 
 // gestion de la grille
