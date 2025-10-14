@@ -1,0 +1,106 @@
+/*partie css home
+-----------------------------------*/
+body {
+  background-color: #e0f7fa;
+  font-family: sans-serif;
+}
+
+.title-home {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 36px;
+  color: #d2df25;
+}
+.message1 {
+  text-align: center;
+  font-size: 24px;
+}
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 116px;
+}
+h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-top: 20px;
+}
+.message2 {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 10px;
+  height: 5vh;
+}
+section {
+  display: flex;
+  justify-content: center;
+}
+.historic-table {
+  width: 80%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 20px auto;
+  background-color: #f8ffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.historic-table th,
+.historic-table td {
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.historic-table thead {
+  background-color: #b2ebf2;
+  color: #004d40;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.historic-table tbody tr:nth-child(even) {
+  background-color: #e0f7fa;
+}
+
+.historic-table tbody tr:nth-child(odd) {
+  background-color: #f1fbfc;
+}
+
+.historic-table tbody tr:hover {
+  background-color: #c7f0f5;
+  transition: background-color 0.2s ease;
+}
+
+.footer-text {
+  width: 70%;
+  margin: 0 auto;
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+}
+.link-home {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+footer {
+  position:absolute;
+  bottom:0;
+  width: 100%;
+  min-height: 240px;
+  background: linear-gradient(to bottom, #e0f7fa 0%, #a4e6f8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  box-sizing: border-box;
+  border: none;
+  padding: 0;
+}
+/*fin css home
+-----------------------------------*/
