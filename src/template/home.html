@@ -4,57 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ .Title }}</title>
-
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="../static/stylehome.css">
-    </head>
+    <link rel="stylesheet" href="../static/stylehome.css">
 </head>
 
 <body>
-    <h1 class="title-home">{{ .Title }}</h1>
-    <p class="message1">{{ .Message }}</p>
-    <div class="form-container">
-    <form action="/play" method="post">
-    <input type="text" name="Joueur1" placeholder="Entrez pseudo joueur 1">
-    <input type="text" name="Joueur2" placeholder="Entrez pseudo joueur 2">
-    <button type="submit">Commencer une partie</button>
-    </form>
-     
-    </div>
-        <p class="message2">{{.Message2}}</p>
+    <main>
+        <h1 class="title-home">{{ .Title }}</h1>
+        <p class="message1">{{ .Message }}</p>
+
+        <div class="form-container">
+            <form action="/play" method="post">
+                <input type="text" name="Joueur1" placeholder="Entrez pseudo joueur 1">
+                <input type="text" name="Joueur2" placeholder="Entrez pseudo joueur 2">
+                <button type="submit">Commencer une partie</button>
+            </form>
+        </div>
+
         <h2>Historique des parties</h2>
         <section>
-  <table class="historic-table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Joueur 1</th>
-        <th>Joueur 2</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{range .Historic}}
-      <tr>
-        <td>{{.Date}}</td>
-        <td>{{.Joueur1}}</td>
-        <td>{{.Joueur2}}</td>
-      </tr>
-      {{end}}
-    </tbody>
-  </table>
-</section>
+            <table class="historic-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Joueur 1</th>
+                        <th>Joueur 2</th>
+                        <th>Gagnant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .Historic}}
+                    <tr>
+                        <td>{{.Date}}</td>
+                        <td>{{.Joueur1}}</td>
+                        <td>{{.Joueur2}}</td>
+                        <td>{{.Winner}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </section>
+    </main>
 
-
-<footer>
-    <div class="footer-text">
-    <nav>
-        <div class="link-home">
-            <a href="/home">Accueil</a>
-            <a href="/contact">Contact</a>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>Puissance 4</h3>
+                <p>© 2025 Tous droits réservés</p>
+            </div>           
         </div>
-    </nav>
-    </div>
-</footer>
+    </footer>
 </body>
+
 </html>

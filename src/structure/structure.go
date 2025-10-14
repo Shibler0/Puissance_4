@@ -10,6 +10,7 @@ type Partie struct {
 	Date    string
 	Joueur1 string
 	Joueur2 string
+	Winner  string
 }
 
 type PageData struct {

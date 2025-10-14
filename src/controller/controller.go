@@ -22,8 +22,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	data := structure.One{
 		Title:    "Puissance 4",
 		Message:  "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
-		Message2: "Ici, vous retrouvez les ancienne partie jouer :",
-		Historic: []structure.Partie{{Date: "1", Joueur1: "martin", Joueur2: "kevin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin"}, {Date: "3", Joueur1: "kevin", Joueur2: "martin"}},
+		Historic: []structure.Partie{{Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "3", Joueur1: "kevin", Joueur2: "martin", Winner: "kevin"}, {Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}},
 	}
 
 	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
