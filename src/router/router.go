@@ -16,6 +16,7 @@ func New() *http.ServeMux {
 	mux.HandleFunc("/save", controller.Save)
 	mux.HandleFunc("/returnmenu", controller.Returnmenu)
 	mux.HandleFunc("/reset", controller.Reset)
+	mux.HandleFunc("/replay", controller.Replay)
 
 	//gere le css
 	fileServer := http.FileServer(http.Dir("static"))

@@ -1,9 +1,5 @@
 package grid
 
-import (
-	"fmt"
-)
-
 var grid [6][7]int
 var PointerGrid = &grid
 
@@ -21,9 +17,6 @@ func CreateGrid() {
 			PointerGrid[i][j] = 0 // Remplissage du tableau
 		}
 	}
-
-	//Debug pour check si la grille est juste
-	fmt.Println("Grille envoyée au template :", PointerGrid)
 }
 
 // mettre les jetons
@@ -82,11 +75,7 @@ func checkWinCondition(row int, column int) (int, bool) {
 		return 0, false
 	}
 
-	for i := 0; i < 7; i++ {
-		if PointerGrid[0][i] != 0 {
-		}
-	}
-
+	//verifie si une personen est gagnante
 	for i := 1; i < 4; i++ {
 
 		if column+i < 7 && PointerGrid[row][column+i] == *PlayerTurnPointer && isRowAligned1 {
@@ -131,8 +120,29 @@ func checkWinCondition(row int, column int) (int, bool) {
 		}
 	}
 
+	var victory = false
+
 	if row1 >= 3 || vertical >= 3 || diagonalDroite >= 3 || diagonalGauche >= 3 {
+		victory = true
 		return *PlayerTurnPointer, true
+	}
+
+	var isGridFull = true
+
+	for row := 0; row < 6; row++ {
+		for col := 0; col < 7; col++ {
+			if PointerGrid[row][col] == 0 {
+				isGridFull = false
+				break
+			}
+		}
+		if !isGridFull {
+			break
+		}
+	}
+
+	if isGridFull && !victory {
+		return 0, true
 	}
 
 	return 0, false

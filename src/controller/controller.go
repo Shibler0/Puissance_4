@@ -8,6 +8,7 @@ import (
 	"os"
 	"power4/grid"
 	"power4/structure"
+	"power4/utils"
 	"strconv"
 )
 
@@ -34,6 +35,13 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	homeData := structure.One{
+		Title:    "Partie enregistré !",
+		Message:  "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
+		Message2: "Ici, vous retrouvez les ancienne partie jouer :",
+		Historic: []structure.Partie{{Date: "1", Joueur1: "martin", Joueur2: "kevin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin"}, {Date: "3", Joueur1: "kevin", Joueur2: "martin"}},
+	}
+
 	game := structure.GameData{
 		Player1: 1,
 		Player2: 2,
@@ -42,7 +50,9 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		IsOver:  false,
 	}
 
-	saveJSON("save.json", game)
+	saveJSON("gamesave.json", game)
+
+	renderTemplate(w, "home.html", homeData)
 
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
@@ -59,12 +69,20 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		col := r.FormValue("col")
 		colInt, _ := strconv.Atoi(col)
 		player, iswon := grid.SetToken(colInt)
-		if iswon {
+
+		if iswon && player != 0 {
 			//pointers = "none"
 			visibility = "none"
 			textvisibility = "auto"
-			winner = strconv.Itoa(player)
-			fmt.Printf("%d a gagné", player)
+			winner = "Felications joueur " + strconv.Itoa(player)
+			addGameToHistoric(playerTurn, 0, player, "14/10/2025")
+		}
+
+		if iswon && player == 0 {
+			visibility = "none"
+			textvisibility = "auto"
+			winner = "Egalité"
+			addGameToHistoric(playerTurn, 0, 0, "14/10/2025")
 		}
 	}
 
@@ -82,20 +100,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 }
 
 func Returnmenu(w http.ResponseWriter, r *http.Request) {
-
-	// if r.Method != http.MethodPost {
-	// 	http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
-	// 	return
-	// }
-
-	// data := structure.One{
-	// 	Message:  "Partie enregistré !",
-	// 	Message2: "Ici, vous retrouvez les ancienne partie jouer :",
-	// 	Historic: []structure.Partie{},
-	// }
-
-	//renderTemplate(w, "home.html", data)
-
+	utils.EmptyGrid()
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
 
@@ -106,11 +111,20 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for i := range grid.PointerGrid {
-		for j := range grid.PointerGrid[i] {
-			grid.PointerGrid[i][j] = 0
-		}
+	utils.EmptyGrid()
+
+	http.Redirect(w, r, "/play", http.StatusSeeOther)
+}
+
+func Replay(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
 	}
+
+	utils.EmptyGrid()
+	*grid.PlayerTurnPointer = 1
 
 	http.Redirect(w, r, "/play", http.StatusSeeOther)
 }
@@ -147,4 +161,27 @@ func saveJSON(nomFichier string, data interface{}) error {
 
 	// Écrire dans le fichier
 	return os.WriteFile(nomFichier, bytes, 0644)
+}
+
+func addGameToHistoric(player1 int, player2 int, winner int, date string) {
+	var historic []structure.Historic
+
+	file, err := os.ReadFile("gamehistoric.json")
+	if err == nil {
+		if err := json.Unmarshal(file, &historic); err != nil {
+			fmt.Println("Erreur lors du décodage JSON :", err)
+		}
+	} else if !os.IsNotExist(err) {
+		fmt.Println("Erreur de lecture fichier :", err)
+	}
+
+	newGame := structure.Historic{
+		Player1: player1,
+		Player2: player2,
+		Winner:  winner,
+		Date:    date,
+	}
+	historic = append(historic, newGame)
+
+	saveJSON("gamehistoric.json", historic)
 }
