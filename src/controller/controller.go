@@ -1,12 +1,13 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"power4/grid"
 	"power4/structure"
-	"power4/utils"
 	"strconv"
 )
 
@@ -27,7 +28,6 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
 }
 
-// Sauvegarde la grille
 func Save(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
@@ -42,7 +42,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		IsOver:  false,
 	}
 
-	utils.SaveJSON("save.json", game)
+	saveJSON("save.json", game)
 
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
@@ -83,11 +83,24 @@ func Game(w http.ResponseWriter, r *http.Request) {
 
 func Returnmenu(w http.ResponseWriter, r *http.Request) {
 
+	// if r.Method != http.MethodPost {
+	// 	http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+	// 	return
+	// }
+
+	// data := structure.One{
+	// 	Message:  "Partie enregistré !",
+	// 	Message2: "Ici, vous retrouvez les ancienne partie jouer :",
+	// 	Historic: []structure.Partie{},
+	// }
+
+	//renderTemplate(w, "home.html", data)
+
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
 
-// Vide la grille
 func Reset(w http.ResponseWriter, r *http.Request) {
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
 		return
@@ -99,17 +112,7 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	data := structure.PageData{
-		Title:          "Pion à poser : ",
-		Grid:           *grid.PointerGrid,
-		PlayerTurn:     *(grid.PlayerTurnPointer),
-		Color:          grid.SetColor(),
-		Visibility:     "auto",
-		Winner:         "",
-		TextVisibility: "none",
-	}
-
-	renderTemplate(w, "play.html", data)
+	http.Redirect(w, r, "/play", http.StatusSeeOther)
 }
 
 // Contact gère la page de contact
@@ -133,4 +136,15 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 		"Message": "Envoie-nous un message 📩",
 	}
 	renderTemplate(w, "contact.html", data)
+}
+
+func saveJSON(nomFichier string, data interface{}) error {
+	// Convertir les données en JSON (avec indentation pour la lisibilité)
+	bytes, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	// Écrire dans le fichier
+	return os.WriteFile(nomFichier, bytes, 0644)
 }
