@@ -29,3 +29,10 @@ type GameData struct {
 	Turn    int       `json:turn`
 	IsOver  bool      `json:isover`
 }
+
+type Historic struct {
+	Player1 int    `json:player1`
+	Player2 int    `json:player2`
+	Winner  int    `json:winner`
+	Date    string `json:date`
+}

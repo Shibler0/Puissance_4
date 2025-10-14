@@ -2,11 +2,13 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
 	"power4/grid"
 	"power4/structure"
+	"power4/utils"
 	"strconv"
 )
 
@@ -49,7 +51,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		IsOver:  false,
 	}
 
-	saveJSON("save.json", game)
+	saveJSON("gamesave.json", game)
 
 	renderTemplate(w, "home.html", homeData)
 
@@ -74,12 +76,14 @@ func Game(w http.ResponseWriter, r *http.Request) {
 			visibility = "none"
 			textvisibility = "auto"
 			winner = "Felications joueur " + strconv.Itoa(player)
+			addGameToHistoric(playerTurn, 0, player, "14/10/2025")
 		}
 
 		if iswon && player == 0 {
 			visibility = "none"
 			textvisibility = "auto"
 			winner = "Egalité"
+			addGameToHistoric(playerTurn, 0, 0, "14/10/2025")
 		}
 	}
 
@@ -97,7 +101,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 }
 
 func Returnmenu(w http.ResponseWriter, r *http.Request) {
-
+	utils.EmptyGrid()
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
 
@@ -108,11 +112,20 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for i := range grid.PointerGrid {
-		for j := range grid.PointerGrid[i] {
-			grid.PointerGrid[i][j] = 0
-		}
+	utils.EmptyGrid()
+
+	http.Redirect(w, r, "/play", http.StatusSeeOther)
+}
+
+func Replay(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
 	}
+
+	utils.EmptyGrid()
+	*grid.PlayerTurnPointer = 1
 
 	http.Redirect(w, r, "/play", http.StatusSeeOther)
 }
@@ -149,4 +162,27 @@ func saveJSON(nomFichier string, data interface{}) error {
 
 	// Écrire dans le fichier
 	return os.WriteFile(nomFichier, bytes, 0644)
+}
+
+func addGameToHistoric(player1 int, player2 int, winner int, date string) {
+	var historic []structure.Historic
+
+	file, err := os.ReadFile("gamehistoric.json")
+	if err == nil {
+		if err := json.Unmarshal(file, &historic); err != nil {
+			fmt.Println("Erreur lors du décodage JSON :", err)
+		}
+	} else if !os.IsNotExist(err) {
+		fmt.Println("Erreur de lecture fichier :", err)
+	}
+
+	newGame := structure.Historic{
+		Player1: player1,
+		Player2: player2,
+		Winner:  winner,
+		Date:    date,
+	}
+	historic = append(historic, newGame)
+
+	saveJSON("gamehistoric.json", historic)
 }

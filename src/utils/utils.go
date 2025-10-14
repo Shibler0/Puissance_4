@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"power4/grid"
 )
 
 func SaveJSON(nomFichier string, data interface{}) error {
@@ -27,4 +28,12 @@ func SetRoute(w http.ResponseWriter, r *http.Request, route string) {
 
 	http.Redirect(w, r, "/"+route, http.StatusSeeOther)
 
+}
+
+func EmptyGrid() {
+	for i := range grid.PointerGrid {
+		for j := range grid.PointerGrid[i] {
+			grid.PointerGrid[i][j] = 0
+		}
+	}
 }

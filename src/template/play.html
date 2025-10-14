@@ -46,7 +46,7 @@
             </table>
         </div>
 
-        <form method="POST" action="/reset">
+        <form method="POST" action="/reset" style="display : {{.Visibility}};">
             <button type="submit" id="rightside" style="border:none; background:none; padding:0;">
                 <img src="../static/picture/refresh.svg" alt="réinitialiser la partie" />
             </button>
@@ -58,6 +58,9 @@
             <p>{{.Winner}}</p>
             <form method="POST" action="/returnmenu">
                 <button class="save">retourner au menu</button>
+            </form>
+            <form method="POST" action="/replay">
+                <button class="save">rejouer</button>
             </form>
         </div>
 
