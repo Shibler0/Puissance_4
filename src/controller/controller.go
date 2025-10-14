@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -35,6 +34,13 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	homeData := structure.One{
+		Title:    "Partie enregistré !",
+		Message:  "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
+		Message2: "Ici, vous retrouvez les ancienne partie jouer :",
+		Historic: []structure.Partie{{Date: "1", Joueur1: "martin", Joueur2: "kevin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin"}, {Date: "3", Joueur1: "kevin", Joueur2: "martin"}},
+	}
+
 	game := structure.GameData{
 		Player1: 1,
 		Player2: 2,
@@ -44,6 +50,8 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	}
 
 	saveJSON("save.json", game)
+
+	renderTemplate(w, "home.html", homeData)
 
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
@@ -60,12 +68,18 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		col := r.FormValue("col")
 		colInt, _ := strconv.Atoi(col)
 		player, iswon := grid.SetToken(colInt)
-		if iswon {
+
+		if iswon && player != 0 {
 			//pointers = "none"
 			visibility = "none"
 			textvisibility = "auto"
-			winner = strconv.Itoa(player)
-			fmt.Printf("%d a gagné", player)
+			winner = "Felications joueur " + strconv.Itoa(player)
+		}
+
+		if iswon && player == 0 {
+			visibility = "none"
+			textvisibility = "auto"
+			winner = "Egalité"
 		}
 	}
 
@@ -83,19 +97,6 @@ func Game(w http.ResponseWriter, r *http.Request) {
 }
 
 func Returnmenu(w http.ResponseWriter, r *http.Request) {
-
-	// if r.Method != http.MethodPost {
-	// 	http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
-	// 	return
-	// }
-
-	// data := structure.One{
-	// 	Message:  "Partie enregistré !",
-	// 	Message2: "Ici, vous retrouvez les ancienne partie jouer :",
-	// 	Historic: []structure.Partie{},
-	// }
-
-	//renderTemplate(w, "home.html", data)
 
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
