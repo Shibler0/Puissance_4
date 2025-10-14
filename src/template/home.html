@@ -13,10 +13,15 @@
 
 <body>
     <h1 class="title-home">{{ .Title }}</h1>
-    <p>{{ .Message }}</p>
+    <p class="message1">{{ .Message }}</p>
+    <form action="/play" method="post">
+    <input type="text" name="Joueur1" placeholder="Entrez pseudo joueur 1">
+    <input type="text" name="Joueur2" placeholder="Entrez pseudo joueur 2">
+    <button type="submit">Envoyer</button>
+    </form> 
     
-        <p>{{.Message2}}</p>
-        <h2>Historique de parties :</h2>
+        <p class="message2">{{.Message2}}</p>
+        <h2>Historique des parties</h2>
         <section>
         <div class="historic-grid" >
             <p>Date</p>
