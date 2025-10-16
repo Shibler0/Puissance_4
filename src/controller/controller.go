@@ -20,6 +20,9 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 
 // Home gère la page d'accueil
 func Home(w http.ResponseWriter, r *http.Request) {
+
+	*grid.IsRetrievePointer = false
+
 	data := structure.One{
 		Title:    "Puissance 4",
 		Message:  "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
@@ -49,6 +52,8 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		Turn:    1,
 		IsOver:  false,
 	}
+
+	*grid.IsRetrievePointer = false
 
 	saveJSON("gamesave.json", game)
 

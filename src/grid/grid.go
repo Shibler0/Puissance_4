@@ -9,9 +9,11 @@ var PlayerTurnPointer = &playerTurn
 var numberOfPlays = 0
 var numberOfPlaysPointer = &numberOfPlays
 
+var IsRetrieve bool = true
+var IsRetrievePointer = &IsRetrieve
+
 // création de la grille
 func CreateGrid() {
-
 	for i := range 6 {
 		for j := range 7 {
 			PointerGrid[i][j] = 0 // Remplissage du tableau
@@ -22,17 +24,23 @@ func CreateGrid() {
 // mettre les jetons
 func SetToken(column int) (int, bool) {
 
-	for row := len(grid) - 1; row >= 0; row-- { //verifie si la case est vide en partant du bas
-		if PointerGrid[row][column] == 0 { // si la case est vide alors renvoie celle-ci
-			PointerGrid[row][column] = *PlayerTurnPointer
-			*numberOfPlaysPointer++
-			player, iswin := checkWinCondition(row, column)
-			managePlayerTurn()
-			return player, iswin
-		}
-	}
+	if *IsRetrievePointer {
 
-	return 0, false
+		for row := len(grid) - 1; row >= 0; row-- { //verifie si la case est vide en partant du bas
+			if PointerGrid[row][column] == 0 { // si la case est vide alors renvoie celle-ci
+				PointerGrid[row][column] = *PlayerTurnPointer
+				*numberOfPlaysPointer++
+				player, iswin := checkWinCondition(row, column)
+				managePlayerTurn()
+				return player, iswin
+			}
+		}
+
+		return 0, false
+	} else {
+		*IsRetrievePointer = true
+		return 0, false
+	}
 }
 
 // choisi quel joueur doit jouer
