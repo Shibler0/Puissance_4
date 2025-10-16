@@ -20,10 +20,14 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 
 // Home gère la page d'accueil
 func Home(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		*(structure.PointerPlayer1) = r.FormValue("Joueur1")
+		*(structure.PointerPlayer2) = r.FormValue("Joueur2")
+		fmt.Println(*(structure.PointerPlayer1), *(structure.PointerPlayer2))
+	}
 	data := structure.One{
-		Title:    "Puissance 4",
-		Message:  "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
-		Historic: []structure.Partie{{Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "3", Joueur1: "kevin", Joueur2: "martin", Winner: "kevin"}, {Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "1", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin", Winner: "martin"}},
+		Title:   "Puissance 4",
+		Message: "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
 	}
 
 	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
@@ -36,15 +40,13 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	}
 
 	homeData := structure.One{
-		Title:    "Partie enregistré !",
-		Message:  "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
-		Message2: "Ici, vous retrouvez les ancienne partie jouer :",
-		Historic: []structure.Partie{{Date: "1", Joueur1: "martin", Joueur2: "kevin"}, {Date: "2", Joueur1: "martin", Joueur2: "kevin"}, {Date: "3", Joueur1: "kevin", Joueur2: "martin"}},
+		Title:   "Partie enregistré !",
+		Message: "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
 	}
 
 	game := structure.GameData{
-		Player1: 1,
-		Player2: 2,
+		Player1: *structure.PointerPlayer1,
+		Player2: *structure.PointerPlayer2,
 		Grid:    *grid.PointerGrid,
 		Turn:    1,
 		IsOver:  false,
@@ -75,14 +77,14 @@ func Game(w http.ResponseWriter, r *http.Request) {
 			visibility = "none"
 			textvisibility = "auto"
 			winner = "Felications joueur " + strconv.Itoa(player)
-			addGameToHistoric(playerTurn, 0, player, "14/10/2025")
+			addGameToHistoric(playerTurn, "0", player, "16/10/2025")
 		}
 
 		if iswon && player == 0 {
 			visibility = "none"
 			textvisibility = "auto"
 			winner = "Egalité"
-			addGameToHistoric(playerTurn, 0, 0, "14/10/2025")
+			addGameToHistoric(playerTurn, "0", 0, "16/10/2025")
 		}
 	}
 
@@ -95,7 +97,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		Winner:         winner,
 		TextVisibility: textvisibility,
 	}
-
+	fmt.Println(*(structure.PointerPlayer1), *(structure.PointerPlayer2), "ici")
 	renderTemplate(w, "play.html", data)
 }
 
@@ -124,7 +126,7 @@ func Replay(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.EmptyGrid()
-	*grid.PlayerTurnPointer = 1
+	*grid.ColorPointer = 1
 
 	http.Redirect(w, r, "/play", http.StatusSeeOther)
 }
@@ -163,7 +165,7 @@ func saveJSON(nomFichier string, data interface{}) error {
 	return os.WriteFile(nomFichier, bytes, 0644)
 }
 
-func addGameToHistoric(player1 int, player2 int, winner int, date string) {
+func addGameToHistoric(player1 string, player2 string, winner int, date string) {
 	var historic []structure.Historic
 
 	file, err := os.ReadFile("gamehistoric.json")
@@ -176,8 +178,8 @@ func addGameToHistoric(player1 int, player2 int, winner int, date string) {
 	}
 
 	newGame := structure.Historic{
-		Player1: player1,
-		Player2: player2,
+		Player1: *(structure.PointerPlayer1),
+		Player2: *(structure.PointerPlayer2),
 		Winner:  winner,
 		Date:    date,
 	}

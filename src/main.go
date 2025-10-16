@@ -15,7 +15,7 @@ func main() {
 	grid.CreateGrid()
 
 	//choisi la route de départ
-	fmt.Println("🚀 Serveur démarré sur http://localhost:8080/play")
+	fmt.Println("🚀 Serveur démarré sur http://localhost:8080/home")
 	//crée le serveur
 	http.ListenAndServe(":8080", r)
 

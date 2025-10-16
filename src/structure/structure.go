@@ -1,22 +1,14 @@
 package structure
 
 type One struct {
-	Title    string
-	Message  string
-	Message2 string
-	Historic []Partie
-}
-type Partie struct {
-	Date    string
-	Joueur1 string
-	Joueur2 string
-	Winner  string
+	Title   string
+	Message string
 }
 
 type PageData struct {
 	Title          string
 	Grid           [6][7]int
-	PlayerTurn     int
+	PlayerTurn     string
 	Color          string
 	Visibility     string
 	Winner         string
@@ -24,16 +16,21 @@ type PageData struct {
 }
 
 type GameData struct {
-	Player1 int       `json:player1`
-	Player2 int       `json:player2`
+	Player1 string    `json:player1`
+	Player2 string    `json:player2`
 	Grid    [6][7]int `json:grid`
 	Turn    int       `json:turn`
 	IsOver  bool      `json:isover`
 }
 
 type Historic struct {
-	Player1 int    `json:player1`
-	Player2 int    `json:player2`
+	Player1 string `json:player1`
+	Player2 string `json:player2`
 	Winner  int    `json:winner`
 	Date    string `json:date`
 }
+
+var Player1 string
+var Player2 string
+var PointerPlayer1 = &Player1
+var PointerPlayer2 = &Player2
