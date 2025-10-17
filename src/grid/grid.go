@@ -1,5 +1,7 @@
 package grid
 
+import "math/rand"
+
 var grid [6][7]int
 var PointerGrid = &grid
 
@@ -26,23 +28,29 @@ func CreateGrid() {
 // mettre les jetons
 func SetToken(column int) (int, bool) {
 
-	if *IsRetrievePointer {
-
-		for row := len(grid) - 1; row >= 0; row-- { //verifie si la case est vide en partant du bas
-			if PointerGrid[row][column] == 0 { // si la case est vide alors renvoie celle-ci
-				PointerGrid[row][column] = *ColorPointer
-				*numberOfPlaysPointer++
-				player, iswin := checkWinCondition(row, column)
-				managePlayerTurn()
-				return player, iswin
-			}
+	for row := len(grid) - 1; row >= 0; row-- { //verifie si la case est vide en partant du bas
+		if PointerGrid[row][column] == 0 { // si la case est vide alors renvoie celle-ci
+			PointerGrid[row][column] = *ColorPointer
+			*numberOfPlaysPointer++
+			player, iswin := checkWinCondition(row, column)
+			managePlayerTurn()
+			return player, iswin
 		}
-
-		return 0, false
-	} else {
-		*IsRetrievePointer = true
-		return 0, false
 	}
+
+	return 0, false
+
+}
+
+func RandomEncouragement() string {
+
+	tab := []string{
+		"Tu vas le faire", "c'est pas fini", "Bon courage",
+	}
+
+	n := rand.Intn(3)
+
+	return tab[n]
 }
 
 // choisi quel joueur doit jouer

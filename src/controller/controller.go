@@ -21,36 +21,17 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 // Home gère la page d'accueil
 func Home(w http.ResponseWriter, r *http.Request) {
 
-	*grid.IsRetrievePointer = false
+	//*grid.IsRetrievePointer = false
 
-	data := structure.One{
-		Title:    "Puissance 4",
-		Message:  "Bienvenue sur le jeu du Puissance 4 !",
-		Historic: []structure.Historic{},
-	}
+	utils.LoadJSON()
 
-	file, err := os.ReadFile("gamehistoric.json")
-
-	if err == nil {
-		if err := json.Unmarshal(file, &data.Historic); err != nil {
-			fmt.Println("Erreur lors du décodage JSON :", err)
-		}
-	} else if !os.IsNotExist(err) {
-		fmt.Println("Erreur de lecture fichier :", err)
-	}
-
-	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
+	renderTemplate(w, "home.html", utils.LoadJSON()) // Affiche le template index.html avec les données
 }
 
 func Save(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
 		return
-	}
-
-	homeData := structure.One{
-		Title:   "Partie enregistré !",
-		Message: "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
 	}
 
 	game := structure.GameData{
@@ -61,11 +42,11 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		IsOver:  false,
 	}
 
-	*grid.IsRetrievePointer = false
+	//*grid.IsRetrievePointer = false
 
 	saveJSON("gamesave.json", game)
 
-	renderTemplate(w, "home.html", homeData)
+	renderTemplate(w, "home.html", utils.LoadJSON())
 
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
@@ -77,6 +58,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 	visibility := "auto"
 	winner := "dimitri"
 	textvisibility := "none"
+	encouragement := "Bonne chance"
 
 	var x *string = structure.PointerPlayer1
 	var y *string = structure.PointerPlayer2
@@ -84,6 +66,11 @@ func Game(w http.ResponseWriter, r *http.Request) {
 	if *x == "" && *y == "" {
 		*x = "Joueur1"
 		*y = "Joueur2"
+	}
+
+	if *(grid.PlayerTurnPointer) == "" {
+		*(grid.PlayerTurnPointer) = *x
+		*(grid.ColorPointer) = 1
 	}
 
 	if r.Method == http.MethodPost {
@@ -97,7 +84,9 @@ func Game(w http.ResponseWriter, r *http.Request) {
 			*structure.PointerPlayer2 = formPlayer2
 		}
 
+		encouragement = grid.RandomEncouragement()
 		col := r.FormValue("col")
+
 		if col != "" {
 			colInt, _ := strconv.Atoi(col)
 			player, iswon := grid.SetToken(colInt)
@@ -126,6 +115,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		Visibility:     visibility,
 		Winner:         winner,
 		TextVisibility: textvisibility,
+		Encouragement:  encouragement,
 	}
 	renderTemplate(w, "play.html", data)
 }
@@ -184,7 +174,7 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func saveJSON(nomFichier string, data interface{}) error {
-	// Convertir les données en JSON (avec indentation pour la lisibilité)
+	// Convertir les données en JSON
 	bytes, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err

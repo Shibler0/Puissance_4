@@ -1,12 +1,48 @@
 [
   {
-    "Player1": "tri",
-    "Player2": "somique",
+    "Player1": "martin",
+    "Player2": "kevin",
     "Winner": 1,
     "Date": "16/10/2025"
   },
   {
+    "Player1": "Joueur1",
+    "Player2": "kevin",
+    "Winner": 1,
+    "Date": "16/10/2025"
+  },
+  {
+    "Player1": "Joueur1",
+    "Player2": "Joueur2",
+    "Winner": 1,
+    "Date": "16/10/2025"
+  },
+  {
+    "Player1": "Joueur1",
+    "Player2": "Joueur2",
+    "Winner": 2,
+    "Date": "16/10/2025"
+  },
+  {
     "Player1": "martin",
+    "Player2": "kevin",
+    "Winner": 1,
+    "Date": "16/10/2025"
+  },
+  {
+    "Player1": "Joueur1",
+    "Player2": "Joueur2",
+    "Winner": 1,
+    "Date": "16/10/2025"
+  },
+  {
+    "Player1": "g",
+    "Player2": "g",
+    "Winner": 1,
+    "Date": "16/10/2025"
+  },
+  {
+    "Player1": "empereur",
     "Player2": "napoleon",
     "Winner": 1,
     "Date": "16/10/2025"

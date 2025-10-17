@@ -2,9 +2,11 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"power4/grid"
+	"power4/structure"
 )
 
 func SaveJSON(nomFichier string, data interface{}) error {
@@ -36,4 +38,23 @@ func EmptyGrid() {
 			grid.PointerGrid[i][j] = 0
 		}
 	}
+}
+
+func LoadJSON() structure.One {
+	datahome := structure.One{
+		Title:    "Puissance 4",
+		Message:  "Bienvenue sur le jeu du Puissance 4 !",
+		Historic: []structure.Historic{},
+	}
+
+	file, err := os.ReadFile("gamehistoric.json")
+
+	if err == nil {
+		if err := json.Unmarshal(file, &datahome.Historic); err != nil {
+			fmt.Println("Erreur lors du décodage JSON :", err)
+		}
+	} else if !os.IsNotExist(err) {
+		fmt.Println("Erreur de lecture fichier :", err)
+	}
+	return datahome
 }

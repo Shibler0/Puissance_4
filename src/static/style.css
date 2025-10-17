@@ -147,3 +147,11 @@ img {
   align-items: center;
   transform: translate(-50%, -50%);
 }
+
+#encouragement {
+  position: absolute;
+  display: flex;
+  width: 20%;
+  top: 50%;
+  left: 2%;
+}
