@@ -1,26 +1,14 @@
 [
   {
-    "Player1": "",
-    "Player2": "",
+    "Player1": "tri",
+    "Player2": "somique",
     "Winner": 1,
     "Date": "16/10/2025"
   },
   {
-    "Player1": "",
-    "Player2": "",
+    "Player1": "martin",
+    "Player2": "napoleon",
     "Winner": 1,
-    "Date": "16/10/2025"
-  },
-  {
-    "Player1": "",
-    "Player2": "",
-    "Winner": 1,
-    "Date": "16/10/2025"
-  },
-  {
-    "Player1": "",
-    "Player2": "",
-    "Winner": 2,
     "Date": "16/10/2025"
   }
 ]

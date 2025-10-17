@@ -1,8 +1,9 @@
 package structure
 
 type One struct {
-	Title   string
-	Message string
+	Title    string
+	Message  string
+	Historic []Historic
 }
 
 type PageData struct {

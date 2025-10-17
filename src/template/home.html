@@ -13,7 +13,7 @@
         <p class="message1">{{ .Message }}</p>
 
         <div class="form-container">
-            <form action="/play" method="post">
+            <form action="/play" method="POST">
                 <input type="text" name="Joueur1" placeholder="Entrez pseudo joueur 1">
                 <input type="text" name="Joueur2" placeholder="Entrez pseudo joueur 2">
                 <button type="submit">Commencer une partie</button>
@@ -35,8 +35,8 @@
                     {{range .Historic}}
                     <tr>
                         <td>{{.Date}}</td>
-                        <td>{{.Joueur1}}</td>
-                        <td>{{.Joueur2}}</td>
+                        <td>{{.Player1}}</td>
+                        <td>{{.Player2}}</td>
                         <td>{{.Winner}}</td>
                     </tr>
                     {{end}}

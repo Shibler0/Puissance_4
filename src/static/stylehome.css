@@ -17,7 +17,7 @@ main {
   text-align: center;
   margin-top: 20px;
   font-size: 36px;
-  color: #00838f;
+  color: #80fff9;
 }
 
 .message1 {
@@ -42,7 +42,7 @@ h2 {
 
 .form-container input[type="text"] {
   padding: 10px 14px;
-  border: 2px solid #b2ebf2;
+  border: 2px solid #d5faff;
   border-radius: 8px;
   outline: none;
   font-size: 16px;
@@ -50,8 +50,8 @@ h2 {
 }
 
 .form-container input[type="text"]:focus {
-  border-color: #00838f;
-  box-shadow: 0 0 6px rgba(0, 131, 143, 0.3);
+  border-color: #16a5b3;
+  box-shadow: 0 0 6px #0391b44d;
 }
 
 .form-container button {

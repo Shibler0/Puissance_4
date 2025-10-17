@@ -20,14 +20,23 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 
 // Home gère la page d'accueil
 func Home(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		*(structure.PointerPlayer1) = r.FormValue("Joueur1")
-		*(structure.PointerPlayer2) = r.FormValue("Joueur2")
-		fmt.Println(*(structure.PointerPlayer1), *(structure.PointerPlayer2))
-	}
+
+	*grid.IsRetrievePointer = false
+
 	data := structure.One{
-		Title:   "Puissance 4",
-		Message: "Bienvenue sur le jeu du Puissance 4 ! Vous pouvez commencer une nouvelle partie ou continuer une partie sauvegardée. Amusez-vous bien !",
+		Title:    "Puissance 4",
+		Message:  "Bienvenue sur le jeu du Puissance 4 !",
+		Historic: []structure.Historic{},
+	}
+
+	file, err := os.ReadFile("gamehistoric.json")
+
+	if err == nil {
+		if err := json.Unmarshal(file, &data.Historic); err != nil {
+			fmt.Println("Erreur lors du décodage JSON :", err)
+		}
+	} else if !os.IsNotExist(err) {
+		fmt.Println("Erreur de lecture fichier :", err)
 	}
 
 	renderTemplate(w, "home.html", data) // Affiche le template index.html avec les données
@@ -52,6 +61,8 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		IsOver:  false,
 	}
 
+	*grid.IsRetrievePointer = false
+
 	saveJSON("gamesave.json", game)
 
 	renderTemplate(w, "home.html", homeData)
@@ -67,24 +78,43 @@ func Game(w http.ResponseWriter, r *http.Request) {
 	winner := "dimitri"
 	textvisibility := "none"
 
-	if r.Method == http.MethodPost {
-		col := r.FormValue("col")
-		colInt, _ := strconv.Atoi(col)
-		player, iswon := grid.SetToken(colInt)
+	var x *string = structure.PointerPlayer1
+	var y *string = structure.PointerPlayer2
 
-		if iswon && player != 0 {
-			//pointers = "none"
-			visibility = "none"
-			textvisibility = "auto"
-			winner = "Felications joueur " + strconv.Itoa(player)
-			addGameToHistoric(playerTurn, "0", player, "16/10/2025")
+	if *x == "" && *y == "" {
+		*x = "Joueur1"
+		*y = "Joueur2"
+	}
+
+	if r.Method == http.MethodPost {
+		formPlayer1 := r.FormValue("Joueur1")
+		formPlayer2 := r.FormValue("Joueur2")
+
+		if formPlayer1 != "" {
+			*structure.PointerPlayer1 = formPlayer1
+		}
+		if formPlayer2 != "" {
+			*structure.PointerPlayer2 = formPlayer2
 		}
 
-		if iswon && player == 0 {
-			visibility = "none"
-			textvisibility = "auto"
-			winner = "Egalité"
-			addGameToHistoric(playerTurn, "0", 0, "16/10/2025")
+		col := r.FormValue("col")
+		if col != "" {
+			colInt, _ := strconv.Atoi(col)
+			player, iswon := grid.SetToken(colInt)
+
+			if iswon && player != 0 {
+				visibility = "none"
+				textvisibility = "auto"
+				winner = "Félicitations joueur " + strconv.Itoa(player)
+				addGameToHistoric(*x, *y, player, "16/10/2025")
+			}
+
+			if iswon && player == 0 {
+				visibility = "none"
+				textvisibility = "auto"
+				winner = "Égalité"
+				addGameToHistoric(*x, *y, 0, "16/10/2025")
+			}
 		}
 	}
 
@@ -97,7 +127,6 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		Winner:         winner,
 		TextVisibility: textvisibility,
 	}
-	fmt.Println(*(structure.PointerPlayer1), *(structure.PointerPlayer2), "ici")
 	renderTemplate(w, "play.html", data)
 }
 
@@ -168,6 +197,8 @@ func saveJSON(nomFichier string, data interface{}) error {
 func addGameToHistoric(player1 string, player2 string, winner int, date string) {
 	var historic []structure.Historic
 
+	fmt.Println("3", player1, player2, winner, date)
+
 	file, err := os.ReadFile("gamehistoric.json")
 	if err == nil {
 		if err := json.Unmarshal(file, &historic); err != nil {
@@ -177,13 +208,19 @@ func addGameToHistoric(player1 string, player2 string, winner int, date string) 
 		fmt.Println("Erreur de lecture fichier :", err)
 	}
 
+	fmt.Println("4", &player1, player2, winner, date)
+
 	newGame := structure.Historic{
-		Player1: *(structure.PointerPlayer1),
-		Player2: *(structure.PointerPlayer2),
+		Player1: player1,
+		Player2: player2,
 		Winner:  winner,
 		Date:    date,
 	}
+	fmt.Println("5", player1, player2, winner, date)
+	fmt.Println(newGame.Player1, newGame.Player2, newGame.Winner, newGame.Date)
 	historic = append(historic, newGame)
 
 	saveJSON("gamehistoric.json", historic)
+
+	fmt.Println("6", player1, player2, winner, date)
 }
