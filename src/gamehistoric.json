@@ -46,5 +46,11 @@
     "Player2": "napoleon",
     "Winner": 1,
     "Date": "16/10/2025"
+  },
+  {
+    "Player1": "Joueur1",
+    "Player2": "Joueur2",
+    "Winner": 1,
+    "Date": "16/10/2025"
   }
 ]
