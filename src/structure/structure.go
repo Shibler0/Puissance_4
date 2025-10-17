@@ -21,6 +21,7 @@ type PageData struct {
 	Visibility     string
 	Winner         string
 	TextVisibility string
+	Encouragement  string
 }
 
 type GameData struct {

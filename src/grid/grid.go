@@ -1,5 +1,7 @@
 package grid
 
+import "math/rand"
+
 var grid [6][7]int
 var PointerGrid = &grid
 
@@ -41,6 +43,17 @@ func SetToken(column int) (int, bool) {
 		*IsRetrievePointer = true
 		return 0, false
 	}
+}
+
+func RandomEncouragement() string {
+
+	tab := []string{
+		"Tu vas le faire", "c'est pas fini", "Bon courage",
+	}
+
+	n := rand.Intn(3)
+
+	return tab[n]
 }
 
 // choisi quel joueur doit jouer

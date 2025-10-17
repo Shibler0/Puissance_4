@@ -69,11 +69,14 @@ func Game(w http.ResponseWriter, r *http.Request) {
 	visibility := "auto"
 	winner := "dimitri"
 	textvisibility := "none"
+	encouragement := "Bonne chance"
 
 	if r.Method == http.MethodPost {
 		col := r.FormValue("col")
 		colInt, _ := strconv.Atoi(col)
 		player, iswon := grid.SetToken(colInt)
+
+		encouragement = grid.RandomEncouragement()
 
 		if iswon && player != 0 {
 			//pointers = "none"
@@ -99,6 +102,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 		Visibility:     visibility,
 		Winner:         winner,
 		TextVisibility: textvisibility,
+		Encouragement:  encouragement,
 	}
 
 	renderTemplate(w, "play.html", data)
@@ -158,7 +162,7 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func saveJSON(nomFichier string, data interface{}) error {
-	// Convertir les données en JSON (avec indentation pour la lisibilité)
+	// Convertir les données en JSON
 	bytes, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err
