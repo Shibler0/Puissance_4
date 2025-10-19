@@ -28,7 +28,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "home.html", utils.LoadJSON()) // Affiche le template index.html avec les données
 }
 
-func Save(w http.ResponseWriter, r *http.Request) {
+func Save(w http.ResponseWriter, r *http.Request) { //sauvegarde la partie en cours
 	if r.Method != http.MethodPost {
 		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
 		return
@@ -52,7 +52,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 }
 
 // gestion de la grille
-func Game(w http.ResponseWriter, r *http.Request) {
+func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du puissance 4
 	title := "Pion à poser : "
 	playerTurn := *(grid.PlayerTurnPointer)
 	visibility := "auto"
@@ -95,14 +95,16 @@ func Game(w http.ResponseWriter, r *http.Request) {
 				visibility = "none"
 				textvisibility = "auto"
 				winner = "Félicitations joueur " + strconv.Itoa(player)
-				addGameToHistoric(*x, *y, player, "16/10/2025")
+				addGameToHistoric(*x, *y, player, "19/10/2025")
+				*x = ""
+				*y = ""
 			}
 
 			if iswon && player == 0 {
 				visibility = "none"
 				textvisibility = "auto"
 				winner = "Égalité"
-				addGameToHistoric(*x, *y, 0, "16/10/2025")
+				addGameToHistoric(*x, *y, 0, "19/10/2025")
 			}
 		}
 	}
@@ -150,44 +152,18 @@ func Replay(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/play", http.StatusSeeOther)
 }
 
-// Contact gère la page de contact
-func Contact(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost { // Si le formulaire est soumis en POST
-		// Récupération des données du formulaire
-		name := r.FormValue("name") // Récupère le champ "name"
-		msg := r.FormValue("msg")   // Récupère le champ "msg"
+func saveJSON(nomFichier string, data interface{}) error { // Convertir les données en JSON
 
-		data := map[string]string{
-			"Title":   "Contact",
-			"Message": "Merci " + name + " pour ton message : " + msg, // Message personnalisé après soumission
-		}
-		renderTemplate(w, "contact.html", data)
-		return // On termine ici pour ne pas exécuter la partie GET
-	}
-
-	// Si ce n'est pas un POST, on affiche simplement le formulaire
-	data := map[string]string{
-		"Title":   "Contact",
-		"Message": "Envoie-nous un message 📩",
-	}
-	renderTemplate(w, "contact.html", data)
-}
-
-func saveJSON(nomFichier string, data interface{}) error {
-	// Convertir les données en JSON
 	bytes, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err
 	}
 
-	// Écrire dans le fichier
-	return os.WriteFile(nomFichier, bytes, 0644)
+	return os.WriteFile(nomFichier, bytes, 0644) // Écrire dans le fichier
 }
 
-func addGameToHistoric(player1 string, player2 string, winner int, date string) {
+func addGameToHistoric(player1 string, player2 string, winner int, date string) { //Sauvegarde en JSON les parties
 	var historic []structure.Historic
-
-	fmt.Println("3", player1, player2, winner, date)
 
 	file, err := os.ReadFile("gamehistoric.json")
 	if err == nil {
@@ -198,19 +174,16 @@ func addGameToHistoric(player1 string, player2 string, winner int, date string) 
 		fmt.Println("Erreur de lecture fichier :", err)
 	}
 
-	fmt.Println("4", &player1, player2, winner, date)
-
 	newGame := structure.Historic{
 		Player1: player1,
 		Player2: player2,
 		Winner:  winner,
 		Date:    date,
 	}
-	fmt.Println("5", player1, player2, winner, date)
+
 	fmt.Println(newGame.Player1, newGame.Player2, newGame.Winner, newGame.Date)
 	historic = append(historic, newGame)
 
 	saveJSON("gamehistoric.json", historic)
 
-	fmt.Println("6", player1, player2, winner, date)
 }

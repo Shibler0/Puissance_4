@@ -17,12 +17,13 @@ main {
   text-align: center;
   margin-top: 20px;
   font-size: 36px;
-  color: #80fff9;
+  color: #0288d1;
 }
 
 .message1 {
   text-align: center;
   font-size: 24px;
+  color: #0277bd
 }
 
 h2 {
@@ -36,37 +37,60 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  height: 116px;
+  gap: 16px;
+  min-height: 116px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column; /* aligne sur une colonne */
+  gap: 16px; /* espace entre champs et bouton */
+}
+.fields {
+  display: flex;
+  flex-direction: row; /* aligne sur une ligne */
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-container input[type="text"] {
+  width: 240px;        /* prend toute la largeur du conteneur */
+  max-width: 300px;   /* mais ne dépasse jamais 300px */
   padding: 10px 14px;
-  border: 2px solid #d5faff;
-  border-radius: 8px;
+  border: 2px solid #81d4fa;
+  border-radius: 24px;
   outline: none;
   font-size: 16px;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+
+  height: 40px;             /* optionnel : fixe la hauteur */
+  line-height: 40px;        /* même que la hauteur */
+  box-sizing: border-box;
+
+  transition: all 0.25s ease;
+}
+.form-container input[type="text"]:hover {
+  transform: scale(1.05);
 }
 
 .form-container input[type="text"]:focus {
-  border-color: #16a5b3;
-  box-shadow: 0 0 6px #0391b44d;
+  border-color: #0288d1;
+  box-shadow: 0 0 6px #81d4fa4d;
 }
 
 .form-container button {
   padding: 10px 20px;
-  background-color: #00838f;
+  background-color: #0288d1;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 24px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .form-container button:hover {
-  background-color: #006064;
+  background-color: #0277bd;
   transform: scale(1.05);
 }
 
@@ -76,15 +100,56 @@ section {
   justify-content: center;
 }
 
+
+
+.historic-table-container { /* pour firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #0288d1 #e0f7fa;
+}
+
+.historic-table-container::-webkit-scrollbar {
+  width: 6px;
+
+}
+
+.historic-table-container::-webkit-scrollbar-track {
+  background: #e0f7fa;
+
+}
+
+.historic-table-container::-webkit-scrollbar-thumb {
+  background-color: #0288d1;
+  border-radius: 3px;
+}
 .historic-table {
-  width: 80%;
+  width: 50%;
   border-collapse: separate;
   border-spacing: 0;
   margin: 20px auto;
-  background-color: #f8ffff;
-  border-radius: 12px;
+  background-color: #ffffff;
+  border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.historic-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #0288d1 ;
+  color: #fff;
+  z-index: 1;
+}
+
+.historic-table tbody {
+  display: block;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.historic-table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* garde alignement colonnes */
 }
 
 .historic-table th,
@@ -95,21 +160,21 @@ section {
 }
 
 .historic-table thead {
-  background-color: #b2ebf2;
-  color: #004d40;
+  background-color: #0288d1;
+  color: #fff;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .historic-table tbody tr:nth-child(even) {
-  background-color: #e0f7fa;
+  background-color: #e1f5fe;
 }
 
 .historic-table tbody tr:nth-child(odd) {
-  background-color: #f1fbfc;
+  background-color: #f0f8ff;
 }
 
 .historic-table tbody tr:hover {
-  background-color: #c7f0f5;
+  background-color: #81d4fa;
   transition: background-color 0.2s ease;
 }

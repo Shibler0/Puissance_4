@@ -14,34 +14,38 @@
 
         <div class="form-container">
             <form action="/play" method="POST">
-                <input type="text" name="Joueur1" placeholder="Entrez pseudo joueur 1">
-                <input type="text" name="Joueur2" placeholder="Entrez pseudo joueur 2">
+                <div class="fields">
+                    <input type="text" name="Joueur1" maxlength="20" placeholder="Entrez pseudo joueur 1">
+                    <input type="text" name="Joueur2" maxlength="20" placeholder="Entrez pseudo joueur 2">
+                </div>
                 <button type="submit">Commencer une partie</button>
             </form>
         </div>
 
         <h2>Historique des parties</h2>
         <section>
-            <table class="historic-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Joueur 1</th>
-                        <th>Joueur 2</th>
-                        <th>Gagnant</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{range .Historic}}
-                    <tr>
-                        <td>{{.Date}}</td>
-                        <td>{{.Player1}}</td>
-                        <td>{{.Player2}}</td>
-                        <td>{{.Winner}}</td>
-                    </tr>
-                    {{end}}
-                </tbody>
-            </table>
+            <div class="historic-table-container">
+                <table class="historic-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Joueur 1</th>
+                            <th>Joueur 2</th>
+                            <th>Gagnant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range .Historic}}
+                        <tr>
+                            <td>{{.Date}}</td>
+                            <td>{{.Player1}}</td>
+                            <td>{{.Player2}}</td>
+                            <td>{{.Winner}}</td>
+                        </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
 </body>
