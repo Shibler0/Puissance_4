@@ -82,5 +82,17 @@
     "Player2": 0,
     "Winner": 1,
     "Date": "14/10/2025"
+  },
+  {
+    "Player1": 2,
+    "Player2": 0,
+    "Winner": 2,
+    "Date": "14/10/2025"
+  },
+  {
+    "Player1": 2,
+    "Player2": 0,
+    "Winner": 2,
+    "Date": "14/10/2025"
   }
 ]
