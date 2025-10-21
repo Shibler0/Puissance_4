@@ -7,6 +7,7 @@ import (
 	"os"
 	"power4/grid"
 	"power4/structure"
+	"time"
 )
 
 func SaveJSON(nomFichier string, data interface{}) error {
@@ -57,4 +58,8 @@ func LoadJSON() structure.One {
 		fmt.Println("Erreur de lecture fichier :", err)
 	}
 	return datahome
+}
+
+func GetTime() string {
+	return time.Now().Format("02/01/2006")
 }

@@ -1,3 +1,26 @@
 [
-  
+  {
+    "Player1": "ke",
+    "Player2": "c",
+    "Winner": "c",
+    "Date": "21/10/2025"
+  },
+  {
+    "Player1": "v",
+    "Player2": "v",
+    "Winner": "v",
+    "Date": "21/10/2025"
+  },
+  {
+    "Player1": "cx",
+    "Player2": "x",
+    "Winner": "cx",
+    "Date": "21/10/2025"
+  },
+  {
+    "Player1": "x",
+    "Player2": "y",
+    "Winner": "x",
+    "Date": "21/10/2025"
+  }
 ]

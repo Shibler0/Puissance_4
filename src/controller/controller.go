@@ -10,7 +10,6 @@ import (
 	"power4/structure"
 	"power4/utils"
 	"strconv"
-	"time"
 )
 
 // renderTemplate est une fonction utilitaire pour afficher un template HTML avec des données dynamiques
@@ -96,7 +95,7 @@ func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du 
 				visibility = "none"
 				textvisibility = "auto"
 				winner = "Félicitations joueur " + *x
-				addGameToHistoric(*x, *y, player, time.Now().Format("02/01/2006"))
+				addGameToHistoric(*x, *y, player, utils.GetTime())
 				*x = ""
 				*y = ""
 			}
@@ -105,7 +104,7 @@ func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du 
 				visibility = "none"
 				textvisibility = "auto"
 				winner = "Félicitations joueur " + *y
-				addGameToHistoric(*x, *y, player, time.Now().Format("02/01/2006"))
+				addGameToHistoric(*x, *y, player, utils.GetTime())
 				*x = ""
 				*y = ""
 			}
@@ -114,7 +113,7 @@ func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du 
 				visibility = "none"
 				textvisibility = "auto"
 				winner = "Égalité"
-				addGameToHistoric(*x, *y, 0, time.Now().Format("02/01/2006"))
+				addGameToHistoric(*x, *y, 0, utils.GetTime())
 			}
 		}
 	}
