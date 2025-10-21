@@ -22,7 +22,6 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 func Home(w http.ResponseWriter, r *http.Request) {
 
 	//*grid.IsRetrievePointer = false
-
 	utils.LoadJSON()
 
 	renderTemplate(w, "home.html", utils.LoadJSON()) // Affiche le template index.html avec les données
@@ -46,9 +45,7 @@ func Save(w http.ResponseWriter, r *http.Request) { //sauvegarde la partie en co
 
 	saveJSON("gamesave.json", game)
 
-	renderTemplate(w, "home.html", utils.LoadJSON())
-
-	http.Redirect(w, r, "/home", http.StatusSeeOther)
+	renderTemplate(w, "save.html", utils.LoadJSON())
 }
 
 // gestion de la grille

@@ -1,26 +1,26 @@
 [
   {
-    "Player1": "ke",
-    "Player2": "c",
-    "Winner": "c",
+    "Player1": "martin",
+    "Player2": "kevin",
+    "Winner": "martin",
     "Date": "21/10/2025"
   },
   {
-    "Player1": "v",
-    "Player2": "v",
-    "Winner": "v",
+    "Player1": "tri",
+    "Player2": "somique",
+    "Winner": "tri",
     "Date": "21/10/2025"
   },
   {
-    "Player1": "cx",
-    "Player2": "x",
-    "Winner": "cx",
+    "Player1": "empereur",
+    "Player2": "napoleon",
+    "Winner": "empereur",
     "Date": "21/10/2025"
   },
   {
-    "Player1": "x",
-    "Player2": "y",
-    "Winner": "x",
+    "Player1": "Joueur1",
+    "Player2": "Joueur2",
+    "Winner": "Joueur2",
     "Date": "21/10/2025"
   }
 ]
