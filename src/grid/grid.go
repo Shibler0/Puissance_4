@@ -23,6 +23,8 @@ func CreateGrid() {
 			PointerGrid[i][j] = 0 // Remplissage du tableau
 		}
 	}
+	*PlayerTurnPointer = "1"
+	*ColorPointer = 1
 }
 
 // mettre les jetons

@@ -10,6 +10,7 @@ import (
 	"power4/structure"
 	"power4/utils"
 	"strconv"
+	"time"
 )
 
 // renderTemplate est une fonction utilitaire pour afficher un template HTML avec des données dynamiques
@@ -91,11 +92,20 @@ func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du 
 			colInt, _ := strconv.Atoi(col)
 			player, iswon := grid.SetToken(colInt)
 
-			if iswon && player != 0 {
+			if iswon && player == 1 {
 				visibility = "none"
 				textvisibility = "auto"
-				winner = "Félicitations joueur " + strconv.Itoa(player)
-				addGameToHistoric(*x, *y, player, "19/10/2025")
+				winner = "Félicitations joueur " + *x
+				addGameToHistoric(*x, *y, player, time.Now().Format("02/01/2006"))
+				*x = ""
+				*y = ""
+			}
+
+			if iswon && player == 2 {
+				visibility = "none"
+				textvisibility = "auto"
+				winner = "Félicitations joueur " + *y
+				addGameToHistoric(*x, *y, player, time.Now().Format("02/01/2006"))
 				*x = ""
 				*y = ""
 			}
@@ -104,7 +114,7 @@ func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du 
 				visibility = "none"
 				textvisibility = "auto"
 				winner = "Égalité"
-				addGameToHistoric(*x, *y, 0, "19/10/2025")
+				addGameToHistoric(*x, *y, 0, time.Now().Format("02/01/2006"))
 			}
 		}
 	}
@@ -164,6 +174,7 @@ func saveJSON(nomFichier string, data interface{}) error { // Convertir les donn
 
 func addGameToHistoric(player1 string, player2 string, winner int, date string) { //Sauvegarde en JSON les parties
 	var historic []structure.Historic
+	var strwinner string
 
 	file, err := os.ReadFile("gamehistoric.json")
 	if err == nil {
@@ -174,10 +185,16 @@ func addGameToHistoric(player1 string, player2 string, winner int, date string) 
 		fmt.Println("Erreur de lecture fichier :", err)
 	}
 
+	if winner == 1 {
+		strwinner = player1
+	} else if winner == 2 {
+		strwinner = player2
+	}
+
 	newGame := structure.Historic{
 		Player1: player1,
 		Player2: player2,
-		Winner:  winner,
+		Winner:  strwinner,
 		Date:    date,
 	}
 

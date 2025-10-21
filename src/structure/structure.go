@@ -28,7 +28,7 @@ type GameData struct {
 type Historic struct {
 	Player1 string `json:player1`
 	Player2 string `json:player2`
-	Winner  int    `json:winner`
+	Winner  string `json:winner`
 	Date    string `json:date`
 }
 
