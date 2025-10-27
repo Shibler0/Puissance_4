@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="../static/stylehome.css">
+</head>
+
+<body>
+    <main>
+        <h1 class="title-home">{{ .Title }}</h1>
+        <p class="message1">{{ .Message }}</p>
+
+        <div class="form-container">
+            <form action="/play" method="POST">
+                <button type="submit">Continuer la partie</button>
+            </form>
+            <form action="/home" method="POST">
+                <button type="submit">Abandonner la partie</button>
+            </form>
+        </div>
+
+        <h2>Historique des parties</h2>
+        <section>
+            <div class="historic-table-container">
+                <table class="historic-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Joueur 1</th>
+                            <th>Joueur 2</th>
+                            <th>Gagnant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range .Historic}}
+                        <tr>
+                            <td>{{.Date}}</td>
+                            <td>{{.Player1}}</td>
+                            <td>{{.Player2}}</td>
+                            <td>{{.Winner}}</td>
+                        </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

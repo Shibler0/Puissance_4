@@ -47,10 +47,17 @@ func SetToken(column int) (int, bool) {
 func RandomEncouragement() string {
 
 	tab := []string{
-		"Tu vas le faire", "c'est pas fini", "Bon courage",
+		"Tu vas le faire",
+		"c'est pas fini",
+		"Bon courage",
+		"coince ton adversaire",
+		"regarde le nombre de case",
+		"observe attentivement",
+		"croit en toi",
+		"vise la victoire",
 	}
 
-	n := rand.Intn(3)
+	n := rand.Intn(8)
 
 	return tab[n]
 }

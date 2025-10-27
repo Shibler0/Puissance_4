@@ -153,5 +153,9 @@ img {
   display: flex;
   width: 20%;
   top: 50%;
-  left: 2%;
+  left: 10%;
+}
+
+#encouragement p{
+  color: #ffffff;
 }

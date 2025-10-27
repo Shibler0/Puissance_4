@@ -20,8 +20,12 @@ func renderTemplate(w http.ResponseWriter, filename string, data interface{}) {
 
 // Home gère la page d'accueil
 func Home(w http.ResponseWriter, r *http.Request) {
+	x := structure.PointerPlayer1
+	y := structure.PointerPlayer2
+	*x = ""
+	*y = ""
 
-	//*grid.IsRetrievePointer = false
+	utils.EmptyGrid()
 	utils.LoadJSON()
 
 	renderTemplate(w, "home.html", utils.LoadJSON()) // Affiche le template index.html avec les données
@@ -40,8 +44,6 @@ func Save(w http.ResponseWriter, r *http.Request) { //sauvegarde la partie en co
 		Turn:    1,
 		IsOver:  false,
 	}
-
-	//*grid.IsRetrievePointer = false
 
 	saveJSON("gamesave.json", game)
 
@@ -154,6 +156,7 @@ func Replay(w http.ResponseWriter, r *http.Request) {
 
 	utils.EmptyGrid()
 	*grid.ColorPointer = 1
+	*grid.PlayerTurnPointer = "1"
 
 	http.Redirect(w, r, "/play", http.StatusSeeOther)
 }
