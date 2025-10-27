@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"power4/controller"
+	"power4/utils"
 )
 
 // New crée et retourne un nouvel objet ServeMux configuré avec les routes de l'application
@@ -13,7 +14,7 @@ func New() *http.ServeMux {
 	// On associe les chemins URL à des fonctions spécifiques du controller
 	mux.HandleFunc("/home", controller.Home)
 	mux.HandleFunc("/play", controller.Game)
-	mux.HandleFunc("/save", controller.Save)
+	mux.HandleFunc("/save", utils.Save)
 	mux.HandleFunc("/returnmenu", controller.Returnmenu)
 	mux.HandleFunc("/reset", controller.Reset)
 	mux.HandleFunc("/replay", controller.Replay)

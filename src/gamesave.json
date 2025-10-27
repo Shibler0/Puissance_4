@@ -1,6 +1,6 @@
 {
-  "Player1": "Joueur1",
-  "Player2": "Joueur2",
+  "Player1": "s",
+  "Player2": "s",
   "Grid": [
     [
       0,
@@ -51,8 +51,8 @@
       0,
       0,
       1,
-      0,
-      0,
+      2,
+      1,
       0,
       0
     ]
