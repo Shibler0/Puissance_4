@@ -22,7 +22,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 // gere l'écran de jeu
-func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du puissance 4
+func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du jeu puissance 4
 	title := "Pion à poser : "
 	playerTurn := *(grid.PlayerTurnPointer)
 	visibility := "auto"
