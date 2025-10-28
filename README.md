@@ -60,3 +60,10 @@ Tout se joue directement dans le navigateur de votre choix.
     cd src
     go run main.go
 
+3. Se rendre dans le jeu :
+   ```bash
+   un lien va s'ouvrir, exemple - 🚀 Serveur démarré sur http://localhost:8080/home
+   maintenez ctrl sur le lien puis cliquer dessus
+   ou
+   copier coller le lien dans votre navigateur.
+
