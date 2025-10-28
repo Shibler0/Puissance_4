@@ -9,12 +9,12 @@ Tout se joue directement dans le navigateur de votre choix.
 ---
 
 ## 🚀 Fonctionnalités principales
-- 👤 **NOM DES JOUEURS** : choix du nom et de la classe (Humain, Elfe, Nain).  
-- 📊 **SAUVEGARDER SA PARTIE** : HP, Mana, Argent, Expérience, Niveau.  
-- ⚔ **ACCES A L'HISTORIQUE** : affrontements contre des gobelins d’entraînement, avec attaques, compétences et potions.  
-- 🧪 **REJOUER SA PARTIE** : possibilité de consommer des potions de vie et de mana.  
-- 🔥 **ABANDONNER SA PARTIE** : acquisition et utilisation de sorts comme *Fire Ball*.  
-- 🛒 **RESET LA PARTIE** : achat de potions, matériaux, amélioration de l’inventaire, nouvelles compétences.  
+- 👤 **NOM DES JOUEURS** : choix du nom des deux joueurs.  
+- ✅ **SAUVEGARDER SA PARTIE** : mettre en pause pour continuer plus tard.
+- 🔄 **CONTINUER SA PARTIE** : continuer une partie mise en pause. 
+- 📋 **ACCES A L'HISTORIQUE** : accées a toutes les parties jouer précédement.    
+- 🏳️ **ABANDONNER SA PARTIE** : refuser de poursuivre une partie en cours, la supprime definitivement.  
+- 🚨 **RESET LA PARTIE** : reinitialise la grille du puissance 4, dans la partie.  
   
 ---
 
@@ -23,23 +23,22 @@ Tout se joue directement dans le navigateur de votre choix.
    PUISSANCE_4/
    │── src/
    │   ├── controller/
-   │   │
+   │   │   └── controller.go
    │   ├── grid/
-   │   │
+   │   │   └── grid.go
    │   ├── router/
-   │   │
+   │   │   └── router.go
    │   ├── static/
-   │   │
-   │   │
-   │   │
+   │   │   ├── style.css
+   │   │   └── stylehome.css
    │   ├── structure/
-   │   │
+   │   │   └── structure.go
    │   ├── template/
-   │   │
-   │   │
-   │   │
+   │   │   ├── home.html
+   │   │   ├── play.html
+   │   │   └── save.html
    │   ├── utils/
-   │   │
+   │   │   └── utils.go
    │   ├── gamehistoric.json
    │   ├── gamesave.json
    │   ├── go.mod
@@ -53,8 +52,8 @@ Tout se joue directement dans le navigateur de votre choix.
 ## ▶️ Lancer le projet
 1. Cloner le dépôt :  
    ```bash
-   git clone https://github.com/ton-compte/PROJETRED.git
-   cd PROJETRED
+   git clone https://github.com/ton-compte/PUISSANCE_4.git
+   cd PUISSANCE_4
 
 2. Lancer le jeu :
    ```bash
