@@ -66,8 +66,7 @@ func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du 
 				textvisibility = "auto"
 				winner = "Félicitations joueur " + *x
 				utils.AddGameToHistoric(*x, *y, player, utils.GetTime())
-				*x = ""
-				*y = ""
+
 			}
 
 			if iswon && player == 2 {
@@ -75,8 +74,7 @@ func Game(w http.ResponseWriter, r *http.Request) { //la fonction principale du 
 				textvisibility = "auto"
 				winner = "Félicitations joueur " + *y
 				utils.AddGameToHistoric(*x, *y, player, utils.GetTime())
-				*x = ""
-				*y = ""
+
 			}
 
 			if iswon && player == 0 {
