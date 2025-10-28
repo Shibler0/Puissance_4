@@ -29,6 +29,8 @@ Tout se joue directement dans le navigateur de votre choix.
    │   ├── router/
    │   │   └── router.go
    │   ├── static/
+   │   │   ├── picture/
+   │   │   │   └── refresh.svg
    │   │   ├── style.css
    │   │   └── stylehome.css
    │   ├── structure/
