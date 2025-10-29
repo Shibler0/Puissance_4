@@ -46,6 +46,7 @@ Tout se joue directement dans le navigateur de votre choix.
    │   ├── go.mod
    │   └── main.go
    ├── .gitignore
+   ├── DiapoPuissance4.pdf
    └── README.md
     
    ```
